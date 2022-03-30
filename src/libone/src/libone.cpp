@@ -1,48 +1,72 @@
 #include "libone.h"
 
 One::One() {
-  text = new string();
+  text = new char[1];
+  text[0] = '\0';
 }
 
 One::~One() {
-  delete text;
+  delete [] text;
 }
 
-void One::setText(string value) {
-  //
+void One::setText(const char * value) {
+  delete [] text;
+
+  int size = 0;
+  for(; value[size] != '\0'; size++);
+
+  text = new char[size];
+  for(int i=0; i<size; i++)
+    text[i] = value[i];
 }
 
-string One::uppercase() {
-  string result(*this->text);
+const char * One::uppercase() {
+  char * result;
 
-  for(int i=0; i<result.size(); i++) {
-    char c = result[i];
-    c = toupper(c);
-    result[i] = c;
+  int size = 0;
+  for(; text[size] != '\0'; size++);
+
+  result = new char[size];
+  for(int i=0; i<size; i++) {
+    unsigned char c = text[i];
+    if (c >= 'a' && c <= 'z')
+      result[i] = c - 32;
+    else
+      result[i] = c;
   }
 
   return result;
 }
 
-string One::lowercase() {
-  string result(*this->text);
+const char * One::lowercase() {
+  char * result;
 
-  for(int i=0; i<result.size(); i++) {
-    char c = result[i];
-    c = tolower(c);
-    result[i] = c;
+  int size = 0;
+  for(; text[size] != '\0'; size++);
+
+  result = new char[size];
+  for(int i=0; i<size; i++) {
+    unsigned char c = text[i];
+    if (c >= 'A' && c <= 'Z')
+      result[i] = c + 32;
+    else
+      result[i] = c;
   }
 
   return result;
 }
 
-string One::inverted() {
-  string result;
+const char * One::inverted() {
+  char * result;
 
-  string temp(*this->text);
-  for(int i=temp.size(); i>0; i--) {
-    result = result + temp.at(i);
+  int size = 0;
+  for(; text[size] != '\0'; size++)
+
+  result = new char[size];
+  for(int i=0; i<size; i++) {
+    result[i] = text[size-(i+1)];
   }
+  result[size] = '\0';
 
   return result;
 }

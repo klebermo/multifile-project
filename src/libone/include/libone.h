@@ -1,22 +1,16 @@
 #ifndef LIB_ONE_H
 #define LIB_ONE_H
 
-#include <iostream>
-using namespace std;
-
-#include <string>
-using namespace std;
-
 class One {
 public:
   One();
   ~One();
 
-  void setText(string value);
+  void setText(const char* value);
 
-  string uppercase();
-  string lowercase();
-  string inverted();
+  const char * uppercase();
+  const char * lowercase();
+  const char * inverted();
 };
 
 #endif  // LIB_ONE_H
